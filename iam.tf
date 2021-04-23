@@ -3,20 +3,21 @@ resource "aws_iam_role" "tf-codepipeline-role" {
 
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Sid    = ""
-        Principal = {
-          Service = "codepipeline.amazonaws.com"
+    assume_role_policy = <<EOF
+    {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+        "Action": "sts:AssumeRole",
+        "Principal": {
+            "Service": "codepipeline.amazonaws.com"
+        },
+        "Effect": "Allow",
+        "Sid": ""
         }
-      },
     ]
-  })
-
+    }
+    EOF
 }
 
 data "aws_iam_policy_document" "tf-cicd-pipeline-policies" {
@@ -52,19 +53,21 @@ resource "aws_iam_role" "tf-codebuild-role" {
 
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Sid    = ""
-        Principal = {
-          Service = "codebuild.amazonaws.com"
+    assume_role_policy = <<EOF
+    {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+        "Action": "sts:AssumeRole",
+        "Principal": {
+            "Service": "codebuild.amazonaws.com"
+        },
+        "Effect": "Allow",
+        "Sid": ""
         }
-      },
     ]
-  })
+    }
+    EOF
 
 }
 
